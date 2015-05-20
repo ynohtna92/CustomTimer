@@ -1,7 +1,7 @@
 # CustomTimer
 A Flash Module for custom timers in Dota 2
 
-
+[GFY Preview](https://gfycat.com/OfficialCautiousCaimanlizard)
 
 Usage
 -----
