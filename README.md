@@ -9,7 +9,7 @@ A Flash Module for custom timers in Dota 2
 
 Usage
 -----
-Places the files in the correct location.
+Places the flash3 and script files in the correct location in your custom game directory.
 
 In lua use  
 ````lua
