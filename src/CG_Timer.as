@@ -33,6 +33,7 @@
 		public var timerPosition:int;
 		public var timerPaused:Boolean = false;
 		public var timer:Timer = null;
+		public var timerWarning:Number = 30;
 		
 		public var xTemp:int;
 		public var yTemp:int;
@@ -91,8 +92,13 @@
 				this.startTime += .1;		
 			
 			var time:Number =  Globals.instance.Game.Time() - this.startTime;
+			var remaining:Number = this.timerDuration - time;
 			
-			this.timeRemaining.text = getTime(this.timerDuration - time);
+			if (remaining <= (this.timerWarning + 1))
+				this.timeRemaining.textColor = 0xDF161F;
+			else
+				this.timeRemaining.textColor = 0xFFFFFF;
+			this.timeRemaining.text = getTime(remaining);
 
 			if (time >= this.timerDuration){
 				this.timer.stop();
@@ -164,6 +170,10 @@
 			this.timerDuration = args.timerSeconds;
 			this.timerEnd = args.timerEnd;
 			this.timerPosition = args.timerPosition;
+			if (args.timerWarning != null)
+				this.timerWarning = args.timerWarning;
+			else
+				this.timerWarning = -1;
 			if (this.timerPosition == 0) {
 				this.x = this.xTemp;
 				this.y = this.yTemp;

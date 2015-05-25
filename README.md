@@ -20,6 +20,7 @@ FireGameEvent('cgm_timer_display', { timerMsg = "Remaining", timerSeconds = 10, 
 - timerSeconds (Integer) = Duration in seconds
 - timerEnd (Boolean) = When true the timer will disappear when it hits 0
 - timerPosition (Integer) = 0 (Display Center), 1 (Display Left), 2 (Display Right), 4 (Display Center - offset)
+- timerWarning (Integer) = -2 (Disable), -1 (Soft Disable, Will display '0' Red) - Changes the timer color to red when the timer is low
   
 You may also call this lua function to pause the timer.  
 ```lua

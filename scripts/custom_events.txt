@@ -26,6 +26,7 @@
         "timerSeconds"  "string"
         "timerEnd"      "bool"
         "timerPosition" "byte"
+        "timerWarning"  "long"
     }
     "cgm_timer_pause"
     {
