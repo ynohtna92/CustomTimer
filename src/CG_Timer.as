@@ -29,11 +29,11 @@
 		public var startTime:Number = -1;
 		public var timerDuration:int;
 		public var timerMessage:String;
-		public var timerEnd:Boolean;
-		public var timerPosition:int;
+		public var timerEnd:Boolean = false;
+		public var timerPosition:int = 0;
 		public var timerPaused:Boolean = false;
 		public var timer:Timer = null;
-		public var timerWarning:Number = 30;
+		public var timerWarning:Number = -1;
 		
 		public var xTemp:int;
 		public var yTemp:int;
@@ -51,11 +51,8 @@
 			// default: play btn is visible, stop button is not
 			trace("##Called Timer Setup!");
 			this.visible = false;
-
-			timeMessage.text = Globals.instance.GameInterface.Translate("#TimerTitle");
 			
-			this.addChild(timeRemaining);
-			this.addChild(timeMessage);
+			this.timeMessage.text = Globals.instance.GameInterface.Translate("#TimerTitle");
 			
 			this.gameAPI.SubscribeToGameEvent("cgm_timer_display", this.onTimerUpdate);
 			this.gameAPI.SubscribeToGameEvent("cgm_timer_pause", this.onTimerPaused);
@@ -92,18 +89,23 @@
 				this.startTime += .1;		
 			
 			var time:Number =  Globals.instance.Game.Time() - this.startTime;
-			var remaining:Number = this.timerDuration - time;
+			var remaining:Number = Math.ceil(this.timerDuration - time);
 			
-			if (remaining <= (this.timerWarning + 1))
+			if (remaining <= (this.timerWarning) && this.timerWarning != -1)
 				this.timeRemaining.textColor = 0xDF161F;
 			else
 				this.timeRemaining.textColor = 0xFFFFFF;
-			this.timeRemaining.text = getTime(remaining);
-
+				
+			if (remaining >= 0)
+				this.timeRemaining.text = getTime(remaining);
+			
 			if (time >= this.timerDuration){
 				this.timer.stop();
 				this.timer = null;
-				fadeOut();
+				if (!this.timerEnd)
+					var t:Timer = new Timer(1000,1);
+					t.addEventListener(TimerEvent.TIMER, fadeOut);
+					t.start();
 			}
 		}
 		
@@ -159,39 +161,52 @@
 		
 		//onTimerPaused
 		public function onTimerPaused(args:Object) : void{
-			this.timerPaused = args.timePaused;
+			if (args.timePaused != null)
+				this.timerPaused = args.timePaused;
 		}
 		
 		//onTimerUpdate
 		public function onTimerUpdate(args:Object) : void{
-			this.timeMessage.htmlText = Globals.instance.GameInterface.Translate(args.timerMsg);
-			this.timerMessage = args.timerMsg;
+			if (args.timerMsg != "") {
+				this.timeMessage.htmlText = Globals.instance.GameInterface.Translate(args.timerMsg);
+				this.timerMessage = args.timerMsg;
+			}
 			this.timeRemaining.text = getTime(args.timerSeconds);
-			this.timerDuration = args.timerSeconds;
-			this.timerEnd = args.timerEnd;
-			this.timerPosition = args.timerPosition;
+			this.timerDuration = args.timerSeconds;			
+			if (args.timerEnd != null)
+				this.timerEnd = args.timerEnd;
 			if (args.timerWarning != null)
 				this.timerWarning = args.timerWarning;
+			if (args.timerSeconds <= args.timerWarning && args.timerWarning != -1)
+				this.timeRemaining.textColor = 0xDF161F;
 			else
-				this.timerWarning = -1;
-			if (this.timerPosition == 0) {
-				this.x = this.xTemp;
-				this.y = this.yTemp;
-			}
-			if (this.timerPosition == 1) {
-				this.x = 20 + this.width/2;
-				this.y = this.yTemp - 20;
-			}
-			if (this.timerPosition == 2) {
-				this.x = this.stageWTemp - this.width/2 - 15;
-				this.y = this.yTemp - 20;
-			}
-			if (this.timerPosition == 4) {
-				this.x = this.xTemp;
-				this.y = this.yTemp - 20;
+				this.timeRemaining.textColor = 0xFFFFFF;
+			if (args.timerPosition != null) {
+				this.timerPosition = args.timerPosition;
+				if (this.timerPosition == 0) {
+					this.x = this.xTemp;
+					this.y = this.yTemp;
+				}
+				if (this.timerPosition == 1) {
+					this.x = 20 + this.width/2;
+					this.y = this.yTemp - 15;
+				}
+				if (this.timerPosition == 2) {
+					this.x = this.stageWTemp - this.width/2 - 15;
+					this.y = this.yTemp - 15;
+				}
+				if (this.timerPosition == 4) {
+					this.x = this.xTemp;
+					this.y = this.yTemp - 15;
+				}
 			}
 			if (!this.visible){
 				fadeIn();
+			}
+			
+			if ( this.timer != null) {
+				this.timer.stop();
+				this.timer = null;
 			}
 			this.startTime = Globals.instance.Game.Time();
 			this.timer = new Timer(100);
