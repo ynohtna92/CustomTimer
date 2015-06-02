@@ -102,10 +102,11 @@
 			if (time >= this.timerDuration){
 				this.timer.stop();
 				this.timer = null;
-				if (!this.timerEnd)
+				if (!this.timerEnd){
 					var t:Timer = new Timer(1000,1);
 					t.addEventListener(TimerEvent.TIMER, fadeOut);
 					t.start();
+				}
 			}
 		}
 		

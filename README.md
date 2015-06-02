@@ -13,7 +13,7 @@ Places the flash3 and script files in the correct location in your custom game d
 
 In lua use  
 ````lua
-FireGameEvent('cgm_timer_display', { timerMsg = "Remaining", timerSeconds = 10, timerWarning = 10, timerEnd = true, timerPosition = 0})
+FireGameEvent('cgm_timer_display', { timerMsg = "Remaining", timerSeconds = 10, timerWarning = 10, timerEnd = false, timerPosition = 0})
 ````
 **Where:**
 - timerMsg (String) = Your Message
