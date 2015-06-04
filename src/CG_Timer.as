@@ -60,6 +60,14 @@
 			trace("## Called Timer Setup Completed!");
 		}
 		
+		//On UI unload, we need to kill the timer
+		public function kill() : void {
+			if ( this.timer != null) {
+				this.timer.stop();
+				this.timer = null;
+			}
+		}
+		
 		//onScreenResize
 		public function screenResize(stageW:int, stageH:int, xScale:Number, yScale:Number, wide:Boolean){
 			
