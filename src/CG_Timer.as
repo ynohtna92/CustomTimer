@@ -96,8 +96,10 @@
 		
 		public function updateCounter(e:TimerEvent) :void{
 			// Check if object still exist in ui.
-			if ( this.timeRemaining == null )
+			if ( this.timeRemaining == null ) {
 				kill()
+				return;
+			}
 				
 			if (Globals.instance.Loader_overlay.movieClip.dota_paused.visible || this.timerPaused)
 				this.startTime += .1;		
