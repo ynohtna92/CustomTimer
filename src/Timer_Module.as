@@ -46,12 +46,13 @@ package {
 			Globals.instance.resizeManager.AddListener(this);
 
 			this.timer.setup(this.gameAPI, this.globals);
+			this.gameAPI.OnUnload = OnUnload;
 			
 			trace("## Custom UI loaded!");
 		}
 		
 		//this function is called when the UI is unloaded
-		public function onUnload() : Boolean {
+		public function OnUnload() : Boolean {
 			this.timer.kill();
 			trace("## Custom UI unloaded!");
 			return true;
