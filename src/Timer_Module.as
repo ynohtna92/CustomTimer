@@ -51,9 +51,10 @@ package {
 		}
 		
 		//this function is called when the UI is unloaded
-		public function OnUnload() : void {
+		public function onUnload() : Boolean {
 			this.timer.kill();
 			trace("## Custom UI unloaded!");
+			return true;
 		}
 
 		public function onResize(re:ResizeManager) : * {

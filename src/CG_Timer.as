@@ -62,9 +62,11 @@
 		
 		//On UI unload, we need to kill the timer
 		public function kill() : void {
+			trace("Timer: Killing timer");
 			if ( this.timer != null) {
 				this.timer.stop();
 				this.timer = null;
+				trace("Timer: Timer Killed!");
 			}
 		}
 		
@@ -93,6 +95,10 @@
 		}
 		
 		public function updateCounter(e:TimerEvent) :void{
+			// Check if object still exisit in ui.
+			if ( this.timeRemaining == null )
+				kill()
+				
 			if (Globals.instance.Loader_overlay.movieClip.dota_paused.visible || this.timerPaused)
 				this.startTime += .1;		
 			
