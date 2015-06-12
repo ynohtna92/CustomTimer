@@ -95,7 +95,7 @@
 		}
 		
 		public function updateCounter(e:TimerEvent) :void{
-			// Check if object still exisit in ui.
+			// Check if object still exist in ui.
 			if ( this.timeRemaining == null )
 				kill()
 				
