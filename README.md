@@ -14,7 +14,7 @@ Places the panorama and script files in the correct location in your custom game
 
 In lua use  
 ````lua
-CustomGameEventManager:Send_ServerToAllClients("display_timer", {msg="hi", duration=10, mode=0, endfade=false, position=0, warning=5, paused=false, sound=true} )
+CustomGameEventManager:Send_ServerToAllClients("display_timer", {msg="Remaining", duration=10, mode=0, endfade=false, position=0, warning=5, paused=false, sound=true} )
 ````
 **Where:**
 - msg (String) = Your Message
