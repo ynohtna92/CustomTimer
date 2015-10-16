@@ -1,6 +1,6 @@
 # CustomTimer
-A Panorama Module for custom timers in Dota 2
-[The Scaleform Module has been depreciated]
+A Panorama Module for custom timers in Dota 2  
+The Scaleform Module has been depreciated and can be found [here](https://github.com/ynohtna92/CustomTimer/releases/tag/Scaleform)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/ynohtna92/CustomTimer/master/src/CustomTimerPreview.PNG"/>
