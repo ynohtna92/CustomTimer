@@ -1,7 +1,6 @@
 var COLOUR_NORMAL = "#FFFFFF";
 var COLOUR_WARNING = "#DF161F";
 var TIMER_INTERVAL = 0.05;
-var FADE_INTERVAL = 0.025;
 
 var startTime = -1;
 var timerDuration = 0;
@@ -16,9 +15,6 @@ var timerWarning = -1; // Second to start warning at from end (-1 Disabled)
 var timerLast = 0;
 
 var timer = $( "#TimerBox" );
-var hideMarginTop = -78;
-var initMarginTop = 22;
-var curtMarginTop = hideMarginTop;
 
 function UpdateTimer() {
 	if (timerPaused)
@@ -52,11 +48,7 @@ function UpdateTimer() {
 }
 
 function FadeIn() {
-	curtMarginTop += 10;
-	timer.style["margin-top"] = curtMarginTop + "px";
-	$.Msg(curtMarginTop);
-	if (curtMarginTop != initMarginTop)
-		$.Schedule(FADE_INTERVAL, function(){FadeIn();});
+	timer.AddClass("FadeIn");
 }
 
 function FadeOut() {
@@ -76,10 +68,7 @@ function DisplayTimer( table ) {
 	var timerTextMsg = $( "#TimerMsg" );
 	timerTextMsg.text = $.Localize(timerMessage);
 	UpdateTimer();
-	//curtMarginTop = hideMarginTop;
-	//timer.style["margin-top"] = curtMarginTop + "px";
-	//FadeIn();
-	timer.AddClass("FadeIn");
+	FadeIn();
 }
 
 function PauseTimer( bool ) {
