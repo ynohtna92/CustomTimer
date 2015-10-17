@@ -47,7 +47,8 @@ function UpdateTimer() {
 	if (time < timerDuration)
 		$.Schedule(TIMER_INTERVAL, function(){UpdateTimer();});
 	else
-		timer.RemoveClass("FadeIn");
+		if (!timerEnd)
+			$.Schedule(1, function(){FadeOut();});
 }
 
 function FadeIn() {
@@ -56,6 +57,10 @@ function FadeIn() {
 	$.Msg(curtMarginTop);
 	if (curtMarginTop != initMarginTop)
 		$.Schedule(FADE_INTERVAL, function(){FadeIn();});
+}
+
+function FadeOut() {
+	timer.RemoveClass("FadeIn");
 }
 
 function DisplayTimer( table ) {
