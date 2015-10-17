@@ -24,6 +24,7 @@ CustomGameEventManager:Send_ServerToAllClients("display_timer", {msg="Remaining"
 - warning (Integer) = -1 (Disable, Will default to '0' Red) - Changes the timer color to red when the timer is low
 - paused (Boolean) = true (Pause), false (Unpause)
 - sound (Boolean) = true (Warning Sound On), false (Warning Sound Off)
+- mode (Integer) = 0 (Countdown), 1 (Countup)
 
 You may also call this lua function to pause the timer.  
 ```lua
